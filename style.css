@@ -1,0 +1,52 @@
+:root {
+  --color-primary-light: #f6e399;
+  --color-primary: #e2b714;
+  --color-primary-dark: #755f0a;
+  --color-secondary-lilght: #84888f;
+  --color-secondary: #323437;
+  --color-secondary-dark: #1a1b1c;
+  --color-text: #d1d0c5;
+  --color-tertiary: #ca4754;
+  --font-header: "Oswald", sans-serif;
+  --font-text: "Source Sans Pro", sans-serif;
+}
+
+*,
+*::after,
+*::before,
+*:focus {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  outline: none;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-size: 62.5%; /* makes 1rem to 10px */
+}
+
+body {
+  background-color: var(--color-secondary);
+  font-family: var(--font-text);
+  font-size: 3rem;
+  color: var(--color-text);
+}
+
+.pageTitle {
+  grid-column: 1 / -1;
+  background-color: var(--color-primary);
+  font-family: var(--font-header);
+  color: var(--color-secondary-dark);
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.mainTable {
+  grid-column: 2 / 5;
+  grid-template-columns: repeat(4, 1fr);
+}
