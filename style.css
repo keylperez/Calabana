@@ -2,7 +2,7 @@
   --color-primary-light: #f6e399;
   --color-primary: #e2b714;
   --color-primary-dark: #755f0a;
-  --color-secondary-lilght: #84888f;
+  --color-secondary-light: #84888f;
   --color-secondary: #323437;
   --color-secondary-dark: #1a1b1c;
   --color-text: #d1d0c5;
@@ -34,19 +34,52 @@ body {
   color: var(--color-text);
 }
 
-.pageTitle {
+.page-title {
   grid-column: 1 / -1;
   background-color: var(--color-primary);
   font-family: var(--font-header);
   color: var(--color-secondary-dark);
+  padding: 10px;
+  padding-left: 50px;
 }
 
-.gridContainer {
+.grid-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 }
 
-.mainTable {
+.table-container {
   grid-column: 2 / 5;
   grid-template-columns: repeat(4, 1fr);
+  margin-top: 50px;
+}
+
+.main-table {
+  grid-column: 2 / -1;
+  grid-template-columns: 100%;
+  grid-auto-rows: 46px;
+}
+
+.table-row {
+  display: flex !important;
+  flex-direction: row;
+  height: 46px;
+}
+
+.table-item {
+  font-size: 3rem;
+  font-family: var(--font-text);
+  font-weight: 300;
+  border: var(--color-secondary-light) 1px solid;
+  padding: 3px;
+  width: 100%;
+}
+
+.check-list {
+  padding: 3px;
+  margin: 3px;
+}
+
+.no-display {
+  display: none !important;
 }
