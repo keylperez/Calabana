@@ -63,7 +63,8 @@ body {
 .table-row {
   display: flex !important;
   flex-direction: row;
-  height: 46px;
+  min-height: 46px;
+  max-height: 92px;
 }
 
 .table-item {
@@ -82,4 +83,10 @@ body {
 
 .no-display {
   display: none !important;
+}
+
+.search-bar {
+  grid-column: 4 / 5;
+  justify-self: end;
+  margin-top: 25px;
 }

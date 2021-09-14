@@ -46,15 +46,16 @@ FILTERS.forEach(el => {
         for(let item of ITEMS) item.classList.add('no-display');
         if(el.checked) FILTERED.push(el.value);
         if(!el.checked) FILTERED.splice(FILTERED.indexOf(el.value), 1);
+        // console.log(FILTERED);
+        let display = displayFilter();
         console.log(FILTERED);
-        displayFilter();
-        undisplayFilter();
-
+        undisplayFilter(display);
     });
 });
 
 //function to filter display
 function displayFilter(){
+    let retVal = false;
     FILTERED.forEach((filter, index) => {
         
         for(let product of PRODUCTS){
@@ -63,19 +64,20 @@ function displayFilter(){
             let categ1 = product.category[0];
             let categ2 = product.category[1];
             let item = ITEMS[product.id-1];
-
-            if((filter === categ1 && filter != categ2) ||
-            (filter != categ1 && filter === categ2)) {
+            // console.log(index);
+            if(filter === categ1 || filter === categ2) {
                 item.classList.remove('no-display');
+                retVal = true;
             }
-
-            console.log(`filter: ${filter}\ncateg1: ${categ1}\ncateg2: ${categ2}\n`);
+            // if(filter === categ1) item.classList.remove('no-display');
+            // console.log(filter);
+            console.log(`filter: ${FILTERED}\ncateg1: ${categ1}\ncateg2: ${categ2}\n`);
             console.log(item);
         }
     });
+    return retVal;
 }
 
-function undisplayFilter(){
-    for(let i = 0; i < FILTERS.length && FILTERS[i].checked === true; i++){}
-    
+function undisplayFilter(determine){
+    if(!determine) ITEMS.forEach(el => el.classList.remove('no-display'));
 }
