@@ -89,4 +89,20 @@ body {
   grid-column: 4 / 5;
   justify-self: end;
   margin-top: 25px;
+  position: relative;
+  width: 300px;
+  height: 50px;
+}
+
+#search-element {
+  width: inherit;
+  height: inherit;
+  padding: 5px;
+  font-family: var(--font-text);
+  font-size: 2rem;
+  background-color: var(--color-primary);
+  color: var(--color-secondary-dark);
+  border: none;
+  border-radius: 4px;
+  border-bottom: var(--color-primary-dark) 4px solid;
 }
