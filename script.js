@@ -52,72 +52,71 @@ FILTERS.forEach(el => {
         if(!el.checked) FILTERED.splice(FILTERED.indexOf(el.value), 1);//if filter is unchecked, remove from the array of checked filters
         
         displayFilter();//function to filter display. return value determines if any of the checkboxes are checked or not
-        console.log(FILTERED); 
+        // console.log(FILTERED); 
     });
 });
+
+
+//listens to the searchbar pero character input para cool
+SBAR.addEventListener('input', () => {
+    displayFilter();
+});
+
 
 //function to filter display
 function displayFilter(){
     let checks = false;//boolean to check if none of the filters are checked
+    
     FILTERED.forEach(filter => {
-        
+        const FITEMS = document.querySelectorAll('.filtered');
         for(let product of PRODUCTS){
             // console.log(`filter: ${filter}; categ1 = ${product.category[0]}; categ2 = ${product.category[1]}`);
+            // console.log(`filter: ${filter}\nprod cat: ${product.category}`);
 
             //since filter only checks 1 of the two categories, used an or statement. longer code for real world multiple category filtering 
             if(filter === product.category[0] || filter === product.category[1]) {
-                ITEMS[product.id-1].classList.remove('no-display');//adds no-dipslay class to the item\
-                ITEMS[product.id-1].classList.add('filtered');
-                checks = true;//changes checks to true meaning at least 1 filter is checked
+                if(SBAR.value === '' || SBAR.value.toLowerCase() === product.name.toLowerCase()){
+                
+                    displayStateOn(ITEMS[product.id-1]);
+                    checks = true;//changes checks to true meaning at least 1 filter is checked
+                }
+                if(SBAR.value != product.name && SBAR.value != '') displayStateOff(ITEMS[product.id-1]);
             }
+
+            if(product.category.length === 2 && (filter === product.category[0] && filter === product.category[1])) doDisplays(SBAR.value, checks, product.name.toLowerCase(), ITEMS[product.id-1]);
+            if(product.category.length === 2 && (filter === product.category[0] || filter === product.category[1])) doDisplays(SBAR.value, checks, product.name.toLowerCase(), ITEMS[product.id-1]);
+            if(product.category.length === 1 && (filter === product.category[0] || filter === product.category[1])) doDisplays(SBAR.value, checks, product.name.toLowerCase(), ITEMS[product.id-1]);
+            
+                
         }
+        console.log('test');
+    
     });
+    for(let product of PRODUCTS) doDisplays(SBAR.value, checks, product.name.toLowerCase(), ITEMS[product.id-1]);
+    for(let product of PRODUCTS) console.log(`sb value: ${SBAR.value.toLowerCase()}\nproductname: ${product.name.toLowerCase()}\nITEMS: ${ITEMS[product.id-1].classList}`);
 
     //if statement to display all elements if no filter is checked. This is determined by the checks boolean variable.
-    if(!checks) ITEMS.forEach(el => el.classList.remove('no-display')); 
+    if(!checks && SBAR.value === '') ITEMS.forEach(el => {
+        console.log('last success');
+        el.classList.remove('no-display');
+        el.classList.remove('filtered');
+    });
+    // console.log(`sb value: ${SBAR.value}\nITEMS: ${ITEMS[product.id-1].classList}`);
 }
 
-//listens to the searchbar pero character input para cool
-SBAR.addEventListener('input', () => {
-    // displayFilter();
-    const FITEMS = document.querySelectorAll('.filtered');
-    const ITEMNAME = document.querySelector('#search-element');
-    // console.log(FITEMS.length === 0);
-    console.log(ITEMNAME.value);
+function displayStateOn(el){
+    el.classList.remove('no-display');//adds no-dipslay class to the item\
+    el.classList.add('filtered');
+}
 
-    PRODUCTS.forEach(pitem => {
-        let itemid;
-        // const ITEMID = PRODUCTS.filter(el => ITEMNAME.value.toLowerCase() === el.name.toLowerCase());
-        if(ITEMNAME.value.toLowerCase() === pitem.name.toLowerCase()){
-            const pitemID = pitem.id;
-            console.log(pitemID);
-            
-            if(FITEMS.length != 0){
-                for(let item of FITEMS){
+function displayStateOff(el){
+    el.classList.add('no-display');//adds no-dipslay class to the item\
+    el.classList.remove('filtered');
+}
 
-                    const itemID = parseInt(item.getAttribute('id'));
-                    if( pitemID != itemID){
-                        item.classList.add('no-display');
-                    }   
-                }
-            }else{
-                for(let item of ITEMS){
-                    const itemID = parseInt(item.getAttribute('id'));
-                    if( pitemID != itemID){
-                        item.classList.add('no-display');
-                    }   
-
-                }
-            }
-        }
-        // if(ITEMNAME.value.toLowerCase() != pitem.name.toLowerCase()){
-        //     for(let item of ITEMS){
-        //         item.classList.remove('no-display');
-        //     }
-        // }
-        //ITEMNAME = FISH
-        //pitem.name = BACON
-        
-    });
-});
-
+function doDisplays(x, y, z, i){
+    if(x != '' && y && x.toLowerCase() === z) displayStateOn(i);
+    if(x != '' && y && x.toLowerCase() != z) displayStateOff(i);
+    if(x != '' && !y && x.toLowerCase() != z) displayStateOff(i);
+    if(x != '' && !y && x.toLowerCase() === z) displayStateOn(i);
+}
